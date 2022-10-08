@@ -56,7 +56,20 @@ def load_data_from_file():
 def output_data_to_stdout(data):
     for i in range(1, len(data)):
         print("No:", data[i][0], "\tWeight:", data[i][1], "\tCost:", data[i][2])
+
+def ask_user_about_weight_to_go():
+    print("Максимальная грузоподъёмность грюкзака:", end="")
+    try:
+        max_weight = int(input())
+        return max_weight
+    except:
+        print("Введите число!")
+        return None
+        
+def make_what_needed(data, max_weight):
+    pass
     
+        
 if __name__ == "__main__":
     print("Bag of thief!")
     
@@ -65,3 +78,9 @@ if __name__ == "__main__":
         exit()
     data = load_data_from_file()
     output_data_to_stdout(data)
+    
+    max_weight = None
+    while True:
+        max_weight = ask_user_about_weight_to_go()
+        if max_weight == None: continue
+        else: break
