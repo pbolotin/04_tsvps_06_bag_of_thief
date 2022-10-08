@@ -69,6 +69,8 @@ def ask_user_about_weight_to_go():
 def find_out_what_max_cost_can_be_snatched(data, max_weight):
     max_cost_by_weight = []
     max_cost_by_weight.append(0)
+    optimal_items_set_by_weight = []
+    optimal_items_set_by_weight.append([])
     
     for curr_weight in range(1, max_weight + 1):
         to_make_choise = []
@@ -78,17 +80,24 @@ def find_out_what_max_cost_can_be_snatched(data, max_weight):
             
             positive_condition_to_use = curr_weight - item_weight
             if positive_condition_to_use >= 0:
-                to_make_choise.append(item_cost + max_cost_by_weight[positive_condition_to_use])
+                #print(positive_condition_to_use, optimal_items_set_by_weight)
+                items_set = optimal_items_set_by_weight[positive_condition_to_use].copy()
+                items_set.append(item_number)
+                to_make_choise.append((item_cost + max_cost_by_weight[positive_condition_to_use], items_set))
             else: pass
         if len(to_make_choise) == 0:
             max_cost_by_weight.append(0)
+            optimal_items_set_by_weight.append([])
             continue
         
         #print(curr_weight, to_make_choise, max(to_make_choise))
-        max_cost_by_weight.append(max(to_make_choise))
+        step_decision = max(to_make_choise)
+        max_cost_by_weight.append(step_decision[0])
+        optimal_items_set_by_weight.append(step_decision[1])
     
     print("Стоимость похищенного:", max_cost_by_weight[-1])
-
+    print("Оптимальный набор украденных предметов по типам:")
+    print(optimal_items_set_by_weight[-1])
         
 if __name__ == "__main__":
     print("Bag of thief!")
