@@ -66,9 +66,29 @@ def ask_user_about_weight_to_go():
         print("Введите число!")
         return None
         
-def make_what_needed(data, max_weight):
-    pass
+def find_out_what_max_cost_can_be_snatched(data, max_weight):
+    max_cost_by_weight = []
+    max_cost_by_weight.append(0)
     
+    for curr_weight in range(1, max_weight + 1):
+        to_make_choise = []
+        for item_number in range(1, len(data)):
+            item_weight = data[item_number][1]
+            item_cost   = data[item_number][2]
+            
+            positive_condition_to_use = curr_weight - item_weight
+            if positive_condition_to_use >= 0:
+                to_make_choise.append(item_cost + max_cost_by_weight[positive_condition_to_use])
+            else: pass
+        if len(to_make_choise) == 0:
+            max_cost_by_weight.append(0)
+            continue
+        
+        #print(curr_weight, to_make_choise, max(to_make_choise))
+        max_cost_by_weight.append(max(to_make_choise))
+    
+    print("Стоимость похищенного:", max_cost_by_weight[-1])
+
         
 if __name__ == "__main__":
     print("Bag of thief!")
@@ -84,3 +104,5 @@ if __name__ == "__main__":
         max_weight = ask_user_about_weight_to_go()
         if max_weight == None: continue
         else: break
+        
+    find_out_what_max_cost_can_be_snatched(data, max_weight)
